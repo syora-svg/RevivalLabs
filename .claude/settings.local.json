@@ -20,7 +20,11 @@
       "Bash(PATH=/opt/homebrew/bin:$PATH npm run build)",
       "Bash(ffprobe -v quiet -print_format json -show_format \"/Users/michaelnusinkis/Downloads/Revival Test Demo File .m4a\")",
       "Bash(PATH=/opt/homebrew/bin:$PATH afinfo '/Users/michaelnusinkis/Downloads/Revival Test Demo File .m4a')",
-      "Bash(mdls -name kMDItemDurationSeconds \"/Users/michaelnusinkis/Downloads/Revival Test Demo File .m4a\")"
+      "Bash(mdls -name kMDItemDurationSeconds \"/Users/michaelnusinkis/Downloads/Revival Test Demo File .m4a\")",
+      "Bash(PATH=/opt/homebrew/bin:$PATH ffmpeg -y -i demo.m4a -filter:a \"volume=2.5\" -c:a aac demo-loud.m4a)",
+      "Bash(npm run:*)",
+      "Bash(export PATH=\"/usr/local/bin:/opt/homebrew/bin:$PATH\")",
+      "Bash(vercel --prod)"
     ]
   }
 }

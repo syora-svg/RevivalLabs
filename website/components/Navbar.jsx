@@ -22,24 +22,83 @@ export default function Navbar() {
         : 'bg-transparent'
     }`}>
       <div className="max-w-6xl mx-auto px-5 sm:px-8">
-        <div className="flex items-center justify-between h-[64px]">
+        <div className="flex items-center justify-between h-[80px]">
 
           {/* Logo */}
           <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="flex items-center group">
-            <svg width="140" height="42" viewBox="0 0 500 150" xmlns="http://www.w3.org/2000/svg" className="transition-opacity duration-200 group-hover:opacity-80">
+            <svg width="400" height="100" viewBox="0 0 900 220" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-opacity duration-200 group-hover:opacity-80">
               <defs>
-                <linearGradient id="rlGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#1e3a8a"/>
-                  <stop offset="100%" stopColor="#38bdf8"/>
+                <linearGradient id="navWaveGrad" x1="40" y1="180" x2="340" y2="20" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="#1D4ED8"/>
+                  <stop offset="55%" stopColor="#3B82F6"/>
+                  <stop offset="100%" stopColor="#BFDBFE"/>
                 </linearGradient>
+                <linearGradient id="navTextGrad" x1="355" y1="150" x2="830" y2="70" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="#0F172A"/>
+                  <stop offset="55%" stopColor="#1E3A8A"/>
+                  <stop offset="100%" stopColor="#60A5FA"/>
+                </linearGradient>
+                <style>{`
+                  .nav-wave-bar {
+                    fill: url(#navWaveGrad);
+                    transform-box: fill-box;
+                    transform-origin: center bottom;
+                    opacity: 0;
+                    animation: navRise 700ms cubic-bezier(.2,.8,.2,1) forwards;
+                  }
+                  .nav-brand-word {
+                    fill: url(#navTextGrad);
+                    font-family: Inter, Arial, Helvetica, sans-serif;
+                    font-size: 76px;
+                    font-weight: 800;
+                    letter-spacing: -2.2px;
+                    opacity: 0;
+                    animation: navTextIn 700ms ease-out 220ms forwards;
+                  }
+                  .nav-wave-bar:nth-child(1)  { animation-delay: 0ms; }
+                  .nav-wave-bar:nth-child(2)  { animation-delay: 40ms; }
+                  .nav-wave-bar:nth-child(3)  { animation-delay: 80ms; }
+                  .nav-wave-bar:nth-child(4)  { animation-delay: 120ms; }
+                  .nav-wave-bar:nth-child(5)  { animation-delay: 160ms; }
+                  .nav-wave-bar:nth-child(6)  { animation-delay: 200ms; }
+                  .nav-wave-bar:nth-child(7)  { animation-delay: 240ms; }
+                  .nav-wave-bar:nth-child(8)  { animation-delay: 280ms; }
+                  .nav-wave-bar:nth-child(9)  { animation-delay: 320ms; }
+                  .nav-wave-bar:nth-child(10) { animation-delay: 360ms; }
+                  .nav-wave-bar:nth-child(11) { animation-delay: 400ms; }
+                  .nav-wave-bar:nth-child(12) { animation-delay: 440ms; }
+                  .nav-wave-bar:nth-child(13) { animation-delay: 480ms; }
+                  @keyframes navRise {
+                    0%   { opacity: 0; transform: scaleY(0.2); }
+                    70%  { opacity: 1; transform: scaleY(1.05); }
+                    100% { opacity: 1; transform: scaleY(1); }
+                  }
+                  @keyframes navTextIn {
+                    0%   { opacity: 0; transform: translateY(6px); }
+                    100% { opacity: 1; transform: translateY(0); }
+                  }
+                  @media (prefers-reduced-motion: reduce) {
+                    .nav-wave-bar, .nav-brand-word { animation: none; opacity: 1; transform: none; }
+                  }
+                `}</style>
               </defs>
-              <g transform="translate(10,20)">
-                <path d="M20 100 L20 10 L70 10 Q100 10 100 40 Q100 70 70 70 L40 70 L100 120 L60 120 L20 80 Z" fill="url(#rlGradient)"/>
-                <path d="M80 120 Q140 90 140 50 Q140 20 110 10 L130 10 Q170 20 170 60 Q170 110 90 130 Z" fill="#38bdf8"/>
+              <g transform="translate(32 34)">
+                <rect className="nav-wave-bar" x="0"   y="96"  width="14" height="18"  rx="7"/>
+                <rect className="nav-wave-bar" x="24"  y="78"  width="14" height="36"  rx="7"/>
+                <rect className="nav-wave-bar" x="48"  y="52"  width="14" height="62"  rx="7"/>
+                <rect className="nav-wave-bar" x="72"  y="24"  width="14" height="90"  rx="7"/>
+                <rect className="nav-wave-bar" x="96"  y="44"  width="14" height="70"  rx="7"/>
+                <rect className="nav-wave-bar" x="120" y="12"  width="14" height="102" rx="7"/>
+                <rect className="nav-wave-bar" x="144" y="34"  width="14" height="80"  rx="7"/>
+                <rect className="nav-wave-bar" x="168" y="18"  width="14" height="96"  rx="7"/>
+                <rect className="nav-wave-bar" x="192" y="42"  width="14" height="72"  rx="7"/>
+                <rect className="nav-wave-bar" x="216" y="62"  width="14" height="52"  rx="7"/>
+                <rect className="nav-wave-bar" x="240" y="78"  width="14" height="36"  rx="7"/>
+                <rect className="nav-wave-bar" x="264" y="92"  width="14" height="22"  rx="7"/>
+                <rect className="nav-wave-bar" x="288" y="100" width="14" height="14"  rx="7"/>
               </g>
-              <text x="200" y="85" fontFamily="Arial, Helvetica, sans-serif" fontSize="42" fill="#111111">Revival</text>
-              <text x="360" y="85" fontFamily="Arial, Helvetica, sans-serif" fontSize="42" fill="#38bdf8">Labs</text>
+              <text x="360" y="140" className="nav-brand-word">Revival Labs</text>
             </svg>
           </button>
 

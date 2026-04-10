@@ -99,6 +99,7 @@ function ActionCard({ card, visible }) {
 export default function PreRecordedDemo() {
   const [playing,  setPlaying]  = useState(false);
   const [started,  setStarted]  = useState(false);
+  const [loading,  setLoading]  = useState(false); // splash screen state
   const [skipped,  setSkipped]  = useState(false);
   const [elapsed,  setElapsed]  = useState(0);
   const [subtitle, setSubtitle] = useState(null);
@@ -113,8 +114,6 @@ export default function PreRecordedDemo() {
     if (audioRef.current) {
       const t = audioRef.current.currentTime;
       setElapsed(t);
-
-      // Update subtitle
       const active = [...SUBTITLES].reverse().find(s => t >= s.time);
       if (active) { setSubtitle(active.text); setBoldSub(active.bold); }
       else         { setSubtitle(null); }
@@ -124,10 +123,15 @@ export default function PreRecordedDemo() {
 
   const play = () => {
     if (!audioRef.current) return;
-    audioRef.current.play();
-    setPlaying(true);
-    setStarted(true);
-    rafRef.current = requestAnimationFrame(tick);
+    // Show loading splash for 2.5s, then start audio
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      audioRef.current?.play();
+      setPlaying(true);
+      setStarted(true);
+      rafRef.current = requestAnimationFrame(tick);
+    }, 2500);
   };
 
   const skip = () => {
@@ -147,8 +151,16 @@ export default function PreRecordedDemo() {
     };
   }, []);
 
+  // Listen for hero CTA event
+  useEffect(() => {
+    const handler = () => play();
+    window.addEventListener('startRecordedDemo', handler);
+    return () => window.removeEventListener('startRecordedDemo', handler);
+  }, []);
+
   const visibleCards = CARDS.filter(c => elapsed >= c.time);
   const isActive     = started && !skipped;
+  const isDone       = skipped || (!playing && started && elapsed >= 100);
 
   return (
     <section
@@ -162,6 +174,22 @@ export default function PreRecordedDemo() {
     >
       {/* Hidden audio */}
       <audio ref={audioRef} src="/demo.m4a" preload="auto" />
+
+      {/* ── Loading splash — full cover, above everything ── */}
+      {loading && (
+        <div className="absolute inset-0 z-30 flex flex-col items-center justify-center px-8 text-center"
+          style={{ background: '#050c18' }}>
+          <h2 style={{ color: '#ffffff', fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 700, letterSpacing: '-0.025em', marginBottom: '20px' }}>
+            Starting demo...
+          </h2>
+          <p style={{ color: 'rgba(180,190,210,0.65)', fontSize: 'clamp(16px, 1.5vw, 22px)', fontWeight: 400, lineHeight: 1.6, maxWidth: '400px', marginBottom: '16px' }}>
+            For the full experience,<br />ensure your volume is on.
+          </p>
+          <p style={{ color: 'rgba(160,175,200,0.45)', fontSize: 'clamp(14px, 1.3vw, 19px)', fontWeight: 400 }}>
+            This Audio has NOT been edited.
+          </p>
+        </div>
+      )}
 
       {/* ── Animated bars — only when active ── */}
       <div
@@ -279,15 +307,26 @@ export default function PreRecordedDemo() {
         )}
 
         {/* ── After skip / ended ── */}
-        {(skipped || (!playing && started && elapsed >= 100)) && (
-          <div className="text-center mt-4">
-            <p className="text-white/40 text-[14px] mb-4">Want this running for your practice?</p>
-            <button
-              onClick={() => document.getElementById('get-started')?.scrollIntoView({ behavior: 'smooth' })}
-              className="btn-primary"
-            >
-              Get Started →
-            </button>
+        {isDone && (
+          <div className="flex flex-col items-center gap-4 mt-6">
+            <p className="text-white/50 text-[15px] text-center max-w-sm">
+              That's your AI receptionist — ready to handle every call for your practice.
+            </p>
+            <div className="flex flex-wrap gap-3 justify-center">
+              <button
+                onClick={() => document.getElementById('demo')?.scrollIntoView({ behavior: 'smooth' })}
+                className="btn-primary flex items-center gap-2"
+              >
+                📞 Test It Yourself
+              </button>
+              <button
+                onClick={() => document.getElementById('get-started')?.scrollIntoView({ behavior: 'smooth' })}
+                className="flex items-center gap-2 px-6 py-3 rounded-full border border-white/20 text-white/70 hover:text-white hover:border-white/40 transition-all text-[15px] font-semibold"
+                style={{ background: 'rgba(255,255,255,0.07)', backdropFilter: 'blur(10px)' }}
+              >
+                Get Started →
+              </button>
+            </div>
           </div>
         )}
       </div>

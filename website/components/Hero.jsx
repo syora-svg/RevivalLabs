@@ -59,11 +59,20 @@ export default function Hero() {
             {/* CTAs */}
             <div className={`flex flex-wrap gap-3 mb-12 transition-all duration-700 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
               style={{ transitionDelay: '240ms' }}>
-              <button onClick={() => go('demo')} className="btn-primary">
-                Hear it live →
+              <button
+                onClick={() => {
+                  document.getElementById('recorded-demo')?.scrollIntoView({ behavior: 'smooth' });
+                  setTimeout(() => window.dispatchEvent(new CustomEvent('startRecordedDemo')), 700);
+                }}
+                className="btn-primary flex items-center gap-2"
+              >
+                <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M6.3 2.841A1.5 1.5 0 004 4.11v11.78a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+                </svg>
+                Play Demo
               </button>
-              <button onClick={() => go('contact')} className="btn-ghost">
-                Talk to sales
+              <button onClick={() => go('demo')} className="btn-ghost">
+                📞 Place a Live Test Call
               </button>
             </div>
 
