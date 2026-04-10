@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "mcp__Claude_Preview__preview_start",
+      "Read(//Users/michaelnusinkis/.nvm/alias/**)",
+      "Read(//Users/michaelnusinkis/**)",
+      "Bash(export PATH=\"/opt/homebrew/bin:$PATH\")",
+      "Bash(gh auth:*)"
+    ]
+  }
+}
