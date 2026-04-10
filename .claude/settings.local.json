@@ -6,7 +6,10 @@
       "Read(//Users/michaelnusinkis/.nvm/alias/**)",
       "Read(//Users/michaelnusinkis/**)",
       "Bash(export PATH=\"/opt/homebrew/bin:$PATH\")",
-      "Bash(gh auth:*)"
+      "Bash(gh auth:*)",
+      "Bash(vercel whoami:*)",
+      "Bash(vercel projects:*)",
+      "Bash(vercel deploy:*)"
     ]
   }
 }
