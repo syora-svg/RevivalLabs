@@ -1,6 +1,6 @@
 export async function POST() {
-  const apiKey  = process.env.RETELL_API_KEY;
-  const agentId = process.env.NEXT_PUBLIC_RETELL_AGENT_ID;
+  const apiKey  = process.env.RETELL_API_KEY?.trim();
+  const agentId = process.env.NEXT_PUBLIC_RETELL_AGENT_ID?.trim();
 
   if (!apiKey || !agentId) {
     return Response.json({ error: 'Missing Retell credentials' }, { status: 500 });

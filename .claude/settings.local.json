@@ -9,7 +9,18 @@
       "Bash(gh auth:*)",
       "Bash(vercel whoami:*)",
       "Bash(vercel projects:*)",
-      "Bash(vercel deploy:*)"
+      "Bash(vercel deploy:*)",
+      "Bash(PATH=/opt/homebrew/bin:$PATH vercel env ls production)",
+      "Bash(PATH=/opt/homebrew/bin:$PATH vercel env pull .env.vercel-check)",
+      "Bash(rm .env.vercel-check)",
+      "Bash(curl -s -X POST https://api.retellai.com/v2/create-web-call -H \"Authorization: Bearer key_8c4f6ebbb05b46e1157901ddee46\" -H \"Content-Type: application/json\" -d '{\"\"agent_id\"\": \"\"agent_06641ec0e93020988f061788c4\"\"}')",
+      "Bash(PATH=/opt/homebrew/bin:$PATH vercel deploy --prod)",
+      "Bash(curl -s -X POST https://revival-labs-ai.vercel.app/api/create-call)",
+      "WebFetch(domain:www.arini.ai)",
+      "Bash(PATH=/opt/homebrew/bin:$PATH npm run build)",
+      "Bash(ffprobe -v quiet -print_format json -show_format \"/Users/michaelnusinkis/Downloads/Revival Test Demo File .m4a\")",
+      "Bash(PATH=/opt/homebrew/bin:$PATH afinfo '/Users/michaelnusinkis/Downloads/Revival Test Demo File .m4a')",
+      "Bash(mdls -name kMDItemDurationSeconds \"/Users/michaelnusinkis/Downloads/Revival Test Demo File .m4a\")"
     ]
   }
 }
